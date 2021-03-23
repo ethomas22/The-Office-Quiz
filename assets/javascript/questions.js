@@ -72,32 +72,33 @@ document.getElementById("startTimer").addEventListener("click", function () {
 
   function nextQuestion() {
     currentQuestion++;
-    document.querySelector("#quizQuestions").innerText =
-      questions[currentQuestion].question;
-    document.querySelector("#answerA").innerText =
-      questions[currentQuestion].answers.a;
-    document.querySelector("#answerB").innerText =
-      questions[currentQuestion].answers.b;
-    document.querySelector("#answerC").innerText =
-      questions[currentQuestion].answers.c;
-    document.querySelector("#answerD").innerText =
-      questions[currentQuestion].answers.d;
-    document
-      .querySelector(".quizAnswer")
-      .addEventListener("click", function (event) {
-        nextQuestion()
+    if (questions[currentQuestion]) {
+      document.querySelector("#quizQuestions").innerText =
+        questions[currentQuestion].question;
+      document.querySelector("#answerA").innerText =
+        questions[currentQuestion].answers.a;
+      document.querySelector("#answerB").innerText =
+        questions[currentQuestion].answers.b;
+      document.querySelector("#answerC").innerText =
+        questions[currentQuestion].answers.c;
+      document.querySelector("#answerD").innerText =
+        questions[currentQuestion].answers.d;
+      document.querySelectorAll(".quizAnswer").forEach((button) => {
+        button.addEventListener("click", function (event) {
+          nextQuestion();
+        });
       });
+    }
   }
 
   function clockTimer() {
     var countdown = setInterval(function () {
       timeLeft--;
       document.getElementById("timerText").innerText = timeLeft;
-      if (timeLeft <= 0 || currentQuestion == questions.length) {
+      if (timeLeft <= 0 || currentQuestion >= questions.length) {
         // Quiz is done
         clearInterval(countdown);
-        removeAnswers();
-        endingCard();
+        location.reload()
       }
     }, 1000);
   }
