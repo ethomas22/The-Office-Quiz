@@ -95,7 +95,7 @@ document.getElementById("startTimer").addEventListener("click", function () {
     var countdown = setInterval(function () {
       timeLeft--;
       document.getElementById("timerText").innerText = timeLeft;
-      if (timeLeft <= 0 || currentQuestion >= questions.length) {
+      if (timeLeft <= 0 || currentQuestion > questions.length) {
         // Quiz is done
         clearInterval(countdown);
         location.reload()
